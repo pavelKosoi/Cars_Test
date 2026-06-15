@@ -8,6 +8,7 @@ public class GameplayState : GameStateBase
     Playground playground;
     CarsManager carsManager;
     MoneyConfig moneyConfig;
+    VisualsConfig visualsConfig;
     CompetitorSpawner competitorSpawner;
     List<IContinuousSpawner> coniniousSpawners = new();
     IInputProvider inputProvider;
@@ -16,12 +17,13 @@ public class GameplayState : GameStateBase
     ITimerVisual timerVisual;
     GameplayScreen gameplayScreen;
 
-    public GameplayState(int gameplayTime, Playground playground, CarsManager carsManager, MoneyConfig moneyConfig)
+    public GameplayState(int gameplayTime, Playground playground, CarsManager carsManager, MoneyConfig moneyConfig, VisualsConfig visualsConfig)
     {
         this.gameplayTime = gameplayTime;
         this.carsManager = carsManager;
         this.playground = playground;
         this.moneyConfig = moneyConfig;
+        this.visualsConfig = visualsConfig;
 
         matchTimer = new AsyncTimer();
         matchScoreModel = new MatchScoreModel();
@@ -42,6 +44,7 @@ public class GameplayState : GameStateBase
        
         InitCarsPool();       
         InitNotesPool();
+        InitVisualsPool();
     }
 
     void InitCarsPool()
@@ -62,6 +65,15 @@ public class GameplayState : GameStateBase
             int amount = GeneralGameManager.Instance.GamePropertiesConfig.MaxSimultaneousNotes;
             ObjectsPool.RegisterEntry(new ObjectsPool.PoolEntry(item.prefabRef, amount, playground.transform));            
         }
+    }
+
+    void InitVisualsPool()
+    {
+        ObjectsPool.RegisterEntry(new ObjectsPool.PoolEntry(visualsConfig.CollisionSparksRef,
+            visualsConfig.MaxSimultaneousSparks, playground.transform));
+
+        ObjectsPool.RegisterEntry(new ObjectsPool.PoolEntry(visualsConfig.SkidmarkLineRef, 
+            visualsConfig.MaxSimultaneousSkidmarks, playground.transform));
     }
 
 

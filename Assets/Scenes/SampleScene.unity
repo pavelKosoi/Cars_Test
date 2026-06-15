@@ -1075,6 +1075,7 @@ MonoBehaviour:
   gamePropertiesConfig: {fileID: 11400000, guid: aee5668a3fbfe624d82ed8e93e2e98e6, type: 2}
   carsConfig: {fileID: 11400000, guid: 665963bcb051a5a4ebcb58c3e8138a9f, type: 2}
   moneysConfig: {fileID: 11400000, guid: 5ef99f1fa4f065a4f824564c8c75b9f4, type: 2}
+  visualsConfig: {fileID: 11400000, guid: 16402a253a49c0a4b907b8fe386fe0aa, type: 2}
   playground: {fileID: 936875411}
 --- !u!1001 &773339127
 PrefabInstance:
@@ -2099,6 +2100,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885599101}
   m_CullTransparentMesh: 1
+--- !u!1001 &3428970883679134312
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651534760177460955, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8243080513599995953, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
+      propertyPath: m_Name
+      value: SkidmarkLine
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 96ff9a92323f9c44c953def3b835991c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2110,3 +2168,4 @@ SceneRoots:
   - {fileID: 421141538}
   - {fileID: 257677849}
   - {fileID: 440057574}
+  - {fileID: 3428970883679134312}

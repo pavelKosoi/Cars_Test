@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MathCollisionManager
 {
-    private List<MathCollider> colliders = new();
+    List<MathCollider> colliders = new();
 
     public void Register(MathCollider c) => colliders.Add(c);
     public void Unregister(MathCollider c) => colliders.Remove(c);
@@ -43,7 +43,7 @@ public class MathCollisionManager
         }
     }
 
-    private void ResolvePenetration(MathCollider a, MathCollider b, float distSqr, float radSum)
+    void ResolvePenetration(MathCollider a, MathCollider b, float distSqr, float radSum)
     {
         float dist = Mathf.Sqrt(distSqr);
         if (dist == 0f) return;
@@ -52,8 +52,8 @@ public class MathCollisionManager
         Vector3 normal = (a.Position - b.Position).normalized;
         Vector3 correction = normal * (penetration * 0.5f);
 
-        a.ApplyPenetration(correction);
-        b.ApplyPenetration(-correction);
+        a.ApplyPenetration(b, correction);
+        b.ApplyPenetration(a, -correction);
     }
 }
 

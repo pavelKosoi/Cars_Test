@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
@@ -109,6 +111,27 @@ public static class ObjectsPool
         }
 
         return entry.Extend(onPosition, setActive);
+    }
+
+    public static void ReturnToPool(GameObject instance, float delaySeconds, CancellationToken token = default)
+    {
+        if (delaySeconds <= 0f)
+        {
+            ReturnToPool(instance);
+            return;
+        }
+
+        ReturnDelayedAsync(instance, delaySeconds, token).Forget();
+    }
+
+    static async UniTask ReturnDelayedAsync(GameObject instance, float delaySeconds, CancellationToken token)
+    {
+        bool isCancelled = await UniTask.Delay(TimeSpan.FromSeconds(delaySeconds), cancellationToken: token).SuppressCancellationThrow();
+
+        if (!isCancelled && instance != null && instance.activeSelf)
+        {
+            ReturnToPool(instance);
+        }
     }
 
     public static bool ReturnToPool(GameObject instance)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GamePropertiesConfig
   m_EditorClassIdentifier: Assembly-CSharp::GamePropertiesConfig
   countdownDuration: 3
-  playtimeDuration: 10
+  playtimeDuration: 30
   botCount: 3
   playerSpawnQuadrant: 2
   npcCollisionFine: 10

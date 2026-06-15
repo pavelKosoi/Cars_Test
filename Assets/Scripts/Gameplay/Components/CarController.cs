@@ -22,6 +22,10 @@ public class CarController : MonoBehaviour, IVehicle, IPoolable, IMoneyCollector
     float currentSpeed;
     Vector3 externalImpactVelocity;
     float currentAngularVelocity;
+    float currentAlignment = 1f;
+    float currentTurnDirection;
+
+
 
     bool isPenaltyOnCooldown;
     CancellationTokenSource fineCooldownCts;
@@ -31,9 +35,14 @@ public class CarController : MonoBehaviour, IVehicle, IPoolable, IMoneyCollector
     public event Action OnReturnedToPool;
     public event Action OnHitBounds;
     public event Action<IMoneyCollector, int> OnMoneyCollected;
+    public event Action<Vector3, float> OnCollided;
 
     public IVehicleControlStrategy ActiveStrategy { get; set; }
     public bool Stop { get; set; }
+
+
+    public CarTelemetry Telemetry => new CarTelemetry(currentSpeed, currentAngularVelocity,
+        transform.forward * currentSpeed + externalImpactVelocity, currentAlignment, currentTurnDirection);
 
     VehicleStrategyFactory strategyFactory => GeneralGameManager.Instance.CarsManager.VehicleStrategyFactory;
     GamePropertiesConfig gamePropertiesConfig => GeneralGameManager.Instance.GamePropertiesConfig;
@@ -81,9 +90,17 @@ public class CarController : MonoBehaviour, IVehicle, IPoolable, IMoneyCollector
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
 
-            float alignment = Vector3.Dot(transform.forward, targetDirection.normalized);
-            float speedMultiplier = Mathf.Clamp(alignment, 0.2f, 1f);
+            Vector3 normalizedDir = targetDirection.normalized; 
+            currentAlignment = Vector3.Dot(transform.forward, normalizedDir);
+            currentTurnDirection = Vector3.Cross(transform.forward, normalizedDir).y;
+
+            float speedMultiplier = Mathf.Clamp(currentAlignment, 0.2f, 1f);
             targetSpeed = moveSpeed * speedMultiplier;
+        }
+        else
+        {
+            currentAlignment = 1f;
+            currentTurnDirection = 0f;
         }
 
         float currentAccelRate = hasTarget ? acceleration : deceleration;
@@ -165,7 +182,7 @@ public class CarController : MonoBehaviour, IVehicle, IPoolable, IMoneyCollector
         }
     }
 
-    void ResolvePenetration(MathCollider hitCollider, Vector3 correction)
+    void ResolvePenetration(MathCollider myCollider, MathCollider hitCollider, Vector3 correction)
     {
         correction.y = 0;
         transform.position += correction;
@@ -175,7 +192,11 @@ public class CarController : MonoBehaviour, IVehicle, IPoolable, IMoneyCollector
             Vector3 pushDir = correction.normalized;
             externalImpactVelocity = pushDir * knockbackForce;
 
-            Vector3 leverArm = hitCollider.transform.position - transform.position;
+            Vector3 contactPoint = myCollider.GetContactPoint(hitCollider);
+
+            OnCollided?.Invoke(contactPoint, externalImpactVelocity.magnitude);
+
+            Vector3 leverArm = contactPoint - transform.position;
             Vector3 torque = Vector3.Cross(leverArm, pushDir);
 
             currentAngularVelocity += torque.y * collisionSpinMultiplier;

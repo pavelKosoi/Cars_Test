@@ -130,6 +130,22 @@ PrefabInstance:
       propertyPath: Radius
       value: 0.23
       objectReference: {fileID: 0}
+    - target: {fileID: 3624630081201748561, guid: 71c1fb01dc845884e9dee7c8ff0bc9c2, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3624630081201748561, guid: 71c1fb01dc845884e9dee7c8ff0bc9c2, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3624630081201748561, guid: 71c1fb01dc845884e9dee7c8ff0bc9c2, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3624630081201748561, guid: 71c1fb01dc845884e9dee7c8ff0bc9c2, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 0.8156863
+      objectReference: {fileID: 0}
     - target: {fileID: 8381562027629781534, guid: 71c1fb01dc845884e9dee7c8ff0bc9c2, type: 3}
       propertyPath: m_Name
       value: PlayerCar 1

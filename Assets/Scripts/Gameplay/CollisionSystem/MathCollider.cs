@@ -12,7 +12,9 @@ public class MathCollider : MonoBehaviour
     public CollisionLayer CollidesWith;
 
     public event Action<MathCollider> OnCollisionEnter;
-    public event Action<MathCollider, Vector3> OnResolvePenetration;
+
+    public event Action<MathCollider, MathCollider, Vector3> OnResolvePenetration;
+
     public bool IsActive => gameObject.activeInHierarchy;
     public Vector3 Position => transform.position;
 
@@ -31,9 +33,17 @@ public class MathCollider : MonoBehaviour
         OnCollisionEnter?.Invoke(other);
     }
 
-    public void ApplyPenetration(Vector3 correction)
+    public void ApplyPenetration(MathCollider other, Vector3 correction)
     {
-        OnResolvePenetration?.Invoke(this, correction);
+        OnResolvePenetration?.Invoke(this, other, correction);
+    }
+
+    public Vector3 GetContactPoint(MathCollider other)
+    {
+        Vector3 directionToOther = other.Position - Position;
+        float radiusProportion = Radius / (Radius + other.Radius);
+
+        return Position + (directionToOther * radiusProportion);
     }
 
     private void OnDrawGizmos()

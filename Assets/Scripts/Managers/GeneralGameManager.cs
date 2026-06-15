@@ -8,12 +8,14 @@ public class GeneralGameManager : MonoBehaviour
     [SerializeField] GamePropertiesConfig gamePropertiesConfig;
     [SerializeField] CarsConfig carsConfig;
     [SerializeField] MoneyConfig moneysConfig;
+    [SerializeField] VisualsConfig visualsConfig;
     [SerializeField] Playground playground;
 
     StateMachine stateMachine;
 
     public GamePropertiesConfig GamePropertiesConfig => gamePropertiesConfig;
     public Playground Playground => playground;
+    public VisualsConfig VisualsConfig => visualsConfig;
     public CarsManager CarsManager { get; private set; }
     public MathCollisionManager collisionManager { get; private set; }
 
@@ -28,7 +30,7 @@ public class GeneralGameManager : MonoBehaviour
 
         stateMachine.RegisterState(new MenuState());
         stateMachine.RegisterState(new CountdownState(gamePropertiesConfig.CountdownDuration));
-        stateMachine.RegisterState(new GameplayState(gamePropertiesConfig.PlaytimeDuration, playground, CarsManager, moneysConfig));
+        stateMachine.RegisterState(new GameplayState(gamePropertiesConfig.PlaytimeDuration, playground, CarsManager, moneysConfig, visualsConfig));
     }
 
     private void Start()
