@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1310f6de4a298c34a93189fbc20b4841, type: 3}
+  m_Name: MoneyConfig
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyConfig
+  notes:
+  - prefabRef:
+      m_AssetGUID: bf63224bdf4c29647bb6ad7d381d2755
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    denomination: 1
+    spawnWeight: 4
+  - prefabRef:
+      m_AssetGUID: aadb5e60c5c3519458a47a0dd9c25a0e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    denomination: 5
+    spawnWeight: 3
+  - prefabRef:
+      m_AssetGUID: 7ad7d08c41c62614996e3a6bafc1998c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    denomination: 10
+    spawnWeight: 2
+  - prefabRef:
+      m_AssetGUID: 0d79c5d7673a6824f852e10d6cf5b02f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    denomination: 50
+    spawnWeight: 1
