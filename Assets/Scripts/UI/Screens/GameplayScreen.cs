@@ -12,6 +12,7 @@ public class GameplayScreen : ScreenBase
     [SerializeField] Transform countersContainer;
 
     [SerializeField] Button continueButton;
+    [SerializeField] GameObject draw;
 
     [SerializeField] GameObject timer;
     [SerializeField] TextMeshProUGUI timerText;
@@ -51,10 +52,16 @@ public class GameplayScreen : ScreenBase
 
     public void SetTimerActive(bool active) => timer.SetActive(active);
     public void SetContinueButtonActive(bool active) => continueButton.gameObject.SetActive(active);
+    public void SetDrawActive(bool active) => draw.SetActive(active);
 
-    public void ShowWinner(IMoneyCollector winner)
+
+    public void ShowWinners(List<IMoneyCollector> winners)
     {
-        activeMoneyCounters[winner].SetWinnerView();
+        foreach (var item in winners)
+        {
+            activeMoneyCounters[item].SetWinnerView();
+        }
     }
-    
+
+ 
 }

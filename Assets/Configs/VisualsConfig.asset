@@ -12,17 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ccfc0a8a31e614da94049c8f35d443, type: 3}
   m_Name: VisualsConfig
   m_EditorClassIdentifier: Assembly-CSharp::VisualsConfig
-  CollisionSparksRef:
-    m_AssetGUID: 
+  collisionSparksRef:
+    m_AssetGUID: 66e7f570b38820d488f5205c2c6bf4c6
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  SkidmarkLineRef:
+  skidmarkLineRef:
     m_AssetGUID: 96ff9a92323f9c44c953def3b835991c
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  MaxSimultaneousSparks: 10
-  MaxSimultaneousSkidmarks: 5
+  floatingTextRef:
+    m_AssetGUID: 3dc617308e226234f82602d3b9e4d6ef
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  winnerConfettiRef:
+    m_AssetGUID: 179386d026b36df47a74a16f822add82
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  maxSimultaneousSparks: 10
+  maxSimultaneousSkidmarks: 5
+  maxSimultaneousFloatingTexts: 15

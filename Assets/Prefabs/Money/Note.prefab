@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 8058198087062074264}
   - component: {fileID: 4536186298617231051}
   - component: {fileID: -2587524619550206037}
+  - component: {fileID: 1075324776984197049}
   m_Layer: 0
   m_Name: Note
   m_TagString: Untagged
@@ -94,6 +95,22 @@ MonoBehaviour:
   IsTrigger: 1
   Layer: 8
   CollidesWith: 0
+--- !u!114 &1075324776984197049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367958808961656637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d1a6da42b62d6498e8f882583e6cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoteVisuals
+  rotationSpeed: 90
+  bobAmplitude: 0.2
+  bobFrequency: 2
+  visualTransform: {fileID: 5959545731950254061}
 --- !u!1001 &2801211626662724542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108,15 +125,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6532625474870085666, guid: 07a977963523b3b4dbcaa27119f6b469, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.15
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 6532625474870085666, guid: 07a977963523b3b4dbcaa27119f6b469, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.15
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 6532625474870085666, guid: 07a977963523b3b4dbcaa27119f6b469, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.15
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 6532625474870085666, guid: 07a977963523b3b4dbcaa27119f6b469, type: 3}
       propertyPath: m_LocalPosition.x

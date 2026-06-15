@@ -28,6 +28,13 @@ public class CarVisuals : MonoBehaviour
     void OnEnable()
     {
         car.OnCollided += HandleCollision;
+        car.OnMoneyCollected += HandleMoneyCollected;
+    }
+    void OnDisable()
+    {
+        car.OnCollided -= HandleCollision;
+        car.OnMoneyCollected -= HandleMoneyCollected;
+        if (isSkidding) StopSkidding();
     }
 
     void Update()
@@ -39,6 +46,18 @@ public class CarVisuals : MonoBehaviour
     {
         var sparksObj = ObjectsPool.GetInstance(visualsConfig.CollisionSparksRef, contactPoint, true);       
         ObjectsPool.ReturnToPool(sparksObj, 1f);
+    }
+
+    void HandleMoneyCollected(IMoneyCollector collector, int amount)
+    {
+        Vector3 spawnPos = transform.position + Vector3.up * 1.5f;
+
+        var textObj = ObjectsPool.GetInstance(visualsConfig.FloatingTextRef, spawnPos, true);
+
+        if (textObj.TryGetComponent(out FloatingTextEffect floatingText))
+        {
+            floatingText.Init(amount);
+        }
     }
 
     void HandleDriftVisuals()
@@ -124,10 +143,5 @@ public class CarVisuals : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
-        car.OnCollided -= HandleCollision;
 
-        if (isSkidding) StopSkidding();
-    }
 }

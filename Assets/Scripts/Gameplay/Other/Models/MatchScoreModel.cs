@@ -27,10 +27,23 @@ public class MatchScoreModel
     public int GetScore(IMoneyCollector collector) => scores.TryGetValue(collector, out var score) ? score : 0;
     public IReadOnlyCollection<IMoneyCollector> GetAllCollectors() => scores.Keys;
 
-    public IMoneyCollector GetWinner()
+    public bool TryGetWinners(out List<IMoneyCollector> winners)
     {
-        if (scores.Count == 0) return null;
-        return scores.OrderByDescending(x => x.Value).First().Key;
+        winners = new List<IMoneyCollector>();
+
+        if (scores.Count == 0) return false;
+
+        int maxScore = scores.Values.Max();
+
+        winners = scores.Where(kvp => kvp.Value == maxScore).Select(kvp => kvp.Key).ToList();
+
+        if (scores.Count > 1 && winners.Count == scores.Count)
+        {
+            winners.Clear();
+            return false;
+        }
+
+        return true;
     }
 
     public void Clear() => scores.Clear();

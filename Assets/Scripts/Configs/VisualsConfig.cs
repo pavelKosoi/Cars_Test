@@ -5,10 +5,22 @@ using UnityEngine.AddressableAssets;
 public class VisualsConfig : ScriptableObject
 {
     [Header("Effects Prefabs")]
-    public AssetReferenceGameObject CollisionSparksRef;
-    public AssetReferenceGameObject SkidmarkLineRef;
+    [SerializeField] AssetReferenceGameObject collisionSparksRef;
+    [SerializeField] AssetReferenceGameObject skidmarkLineRef;
+    [SerializeField] AssetReferenceGameObject floatingTextRef;
+    [SerializeField] AssetReferenceGameObject winnerConfettiRef;
 
     [Header("Pool Settings")]
-    public int MaxSimultaneousSparks = 10;
-    public int MaxSimultaneousSkidmarks = 5;
+    [SerializeField] int maxSimultaneousSparks = 10;
+    [SerializeField] int maxSimultaneousSkidmarks = 5;
+    [SerializeField] int maxSimultaneousFloatingTexts = 15;
+
+    public AssetReferenceGameObject CollisionSparksRef => collisionSparksRef;
+    public AssetReferenceGameObject SkidmarkLineRef => skidmarkLineRef;
+    public AssetReferenceGameObject FloatingTextRef => floatingTextRef;
+    public AssetReferenceGameObject WinnerConfettiRef => winnerConfettiRef;
+
+    public int MaxSimultaneousFloatingTexts => maxSimultaneousFloatingTexts;
+    public int MaxSimultaneousSparks => maxSimultaneousSparks;
+    public int MaxSimultaneousSkidmarks => maxSimultaneousSkidmarks;
 }

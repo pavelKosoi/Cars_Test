@@ -16,13 +16,7 @@ public class NoteController : MonoBehaviour, IPoolable
         this.note = note;
     }
 
-    public async UniTask ReturnToPoolDelay(float delay)
-    {
-        var token = this.GetCancellationTokenOnDestroy();
-        await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
-        ReturnToPool();
-    }
-
+   
     public void ReturnToPool()
     {
         if (ObjectsPool.ReturnToPool(gameObject))

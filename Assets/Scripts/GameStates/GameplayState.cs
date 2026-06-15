@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameplayState : GameStateBase
@@ -74,6 +75,11 @@ public class GameplayState : GameStateBase
 
         ObjectsPool.RegisterEntry(new ObjectsPool.PoolEntry(visualsConfig.SkidmarkLineRef, 
             visualsConfig.MaxSimultaneousSkidmarks, playground.transform));
+
+        ObjectsPool.RegisterEntry(new ObjectsPool.PoolEntry(visualsConfig.FloatingTextRef,
+         visualsConfig.MaxSimultaneousFloatingTexts, playground.transform));
+
+        ObjectsPool.RegisterEntry(new ObjectsPool.PoolEntry(visualsConfig.WinnerConfettiRef, 1, playground.transform));
     }
 
 
@@ -100,13 +106,10 @@ public class GameplayState : GameStateBase
         matchTimer.Start(gameplayTime);
     }
 
-    void HandleMatchFinished()
+    private void HandleMatchFinished()
     {
         gameplayScreen.SetTimerActive(false);
         gameplayScreen.SetContinueButtonActive(true);
-
-        var winneer = matchScoreModel.GetWinner();
-        gameplayScreen.ShowWinner(winneer);
 
         foreach (var spawner in coniniousSpawners)
         {
@@ -117,6 +120,25 @@ public class GameplayState : GameStateBase
         {
             item.Stop = true;
         }
+
+        if (matchScoreModel.TryGetWinners(out var winners))
+        {
+            foreach (var winner in winners)
+            {
+               
+                if (winner is CarController winnerCar)
+                {
+                    var confetti = ObjectsPool.GetInstance(visualsConfig.WinnerConfettiRef, 
+                        winnerCar.transform.position, setActive: true);
+                    confetti.transform.SetParent(winnerCar.transform);
+
+                    ObjectsPool.ReturnToPool(confetti, 5f);
+                }
+            }
+
+            gameplayScreen.ShowWinners(winners);
+        }
+        else gameplayScreen.SetDrawActive(true);
     }
 
     public override void Exit()
@@ -129,6 +151,7 @@ public class GameplayState : GameStateBase
         }
         competitorSpawner.Clear();
         gameplayScreen.SetContinueButtonActive(false);
+        gameplayScreen.SetDrawActive(false);
         Dispose();
     }
   
