@@ -8,7 +8,6 @@ public class PlayerControlStrategy : VehicleControlStrategyBase
     {
         this.inputProvider = inputProvider;
     }
- 
 
     public override Vector3 GetMoveDirection()
     {
@@ -19,7 +18,7 @@ public class PlayerControlStrategy : VehicleControlStrategyBase
 
             return direction.normalized;
         }
-      
+
         return Vector3.zero;
     }
 }

@@ -26,7 +26,7 @@ public class VehicleStrategyFactory
                 new PlayerControlStrategy(controller, inputProvider),
 
             _ when type == typeof(BotControlStrategy) =>
-           new BotControlStrategy(controller, botPerception),
+           new BotControlStrategy(controller, botPerception, playgroundBounds),
 
             _ => throw new ArgumentException($"Strategy of type {type} is not supported by Factory.")
         };

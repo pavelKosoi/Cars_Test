@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public interface IInputProvider
+public interface IInputProvider : IDisposable
 { 
-    bool TryGetTargetPoint(out Vector3 worldPoint);
+    bool TryGetTargetPoint(out Vector3 worldPoint);    
 }

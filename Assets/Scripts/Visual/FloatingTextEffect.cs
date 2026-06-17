@@ -27,7 +27,7 @@ public class FloatingTextEffect : MonoBehaviour, IPoolable
         if (amount > 0)
         {
             textMesh.text = $"+{amount}K";
-            textMesh.color = Color.green;
+            textMesh.color = Color.white;
         }
         else
         {

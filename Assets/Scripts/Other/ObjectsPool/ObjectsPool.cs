@@ -25,7 +25,8 @@ public static class ObjectsPool
         {
             for (int i = 0; i < startAmount; i++)
             {
-                var instance = await Addressables.InstantiateAsync(prefabRef, defaultParent);
+                var instance = await Addressables.InstantiateAsync(prefabRef, defaultParent)
+                    .ToUniTask(cancellationToken: GameBootstrapper.GlobalCt);
                 SetupInstance(instance, false);
             }
         }
@@ -63,6 +64,14 @@ public static class ObjectsPool
         entries[entry.prefabRef] = entry;
         entry.Init().Forget();
     }
+
+    public static async UniTask RegisterEntryAsync(PoolEntry entry)
+    {
+        if (entries.ContainsKey(entry.prefabRef)) return;
+        entries[entry.prefabRef] = entry;
+        await entry.Init();
+    }
+
 
     public static GameObject GetInstance(AssetReferenceGameObject prefabRef,
         Vector3 onPosition = default, bool setActive = false, bool forceExtend = true)

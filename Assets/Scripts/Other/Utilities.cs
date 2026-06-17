@@ -48,10 +48,51 @@ public static class Utilities
 
         return term1 + term2 + term3;     
     }
+
+    public static void SetAnchor(this RectTransform rect, AnchorPreset preset)
+    {
+        switch (preset)
+        {
+            case AnchorPreset.MiddleCenter:
+                rect.anchorMin = new Vector2(0.5f, 0.5f);
+                rect.anchorMax = new Vector2(0.5f, 0.5f);
+                rect.pivot = new Vector2(0.5f, 0.5f);
+                break;
+
+            case AnchorPreset.TopCenter:
+                rect.anchorMin = new Vector2(0.5f, 1f);
+                rect.anchorMax = new Vector2(0.5f, 1f);
+                rect.pivot = new Vector2(0.5f, 1f);
+                break;
+
+            case AnchorPreset.TopLeft:
+                rect.anchorMin = new Vector2(0f, 1f);
+                rect.anchorMax = new Vector2(0f, 1f);
+                rect.pivot = new Vector2(0f, 1f);
+                break;
+
+            case AnchorPreset.StretchAll:
+                rect.anchorMin = new Vector2(0f, 0f);
+                rect.anchorMax = new Vector2(1f, 1f);
+                rect.pivot = new Vector2(0.5f, 0.5f);
+                break;
+        }
+    }
 }
 [Serializable]
 public class TweenSettings
 {
     public Ease ease;
     public float duration;
+}
+
+
+public enum AnchorPreset
+{
+    MiddleCenter,
+    TopCenter,
+    TopLeft,
+    TopRight,
+    BottomCenter,
+    StretchAll
 }

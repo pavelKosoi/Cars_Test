@@ -8,6 +8,12 @@ public abstract class ContinuousSpawnerBase<T> : IContinuousSpawner where T : IP
 {
     protected CancellationTokenSource cts;
     protected List<T> activeInstances = new();
+    protected GamePropertiesConfig gameProperties;
+
+    protected ContinuousSpawnerBase()
+    {
+        gameProperties = ServiceLocator.Get<GamePropertiesConfig>();
+    }
 
     public IReadOnlyList<T> ActiveInstances => activeInstances;
 

@@ -9,7 +9,7 @@ public class VisualsConfig : ScriptableObject
     [SerializeField] AssetReferenceGameObject skidmarkLineRef;
     [SerializeField] AssetReferenceGameObject floatingTextRef;
     [SerializeField] AssetReferenceGameObject winnerConfettiRef;
-
+ 
     [Header("Pool Settings")]
     [SerializeField] int maxSimultaneousSparks = 10;
     [SerializeField] int maxSimultaneousSkidmarks = 5;

@@ -1,26 +1,32 @@
 using UnityEngine;
 
-public class BotControlStrategy : VehicleControlStrategyBase
+public class BotControlStrategy : VehicleControlStrategyBase, IStateSwitcher<BotStateBase>
 {
-    private StateMachine stateMachine;
+    StateMachine stateMachine;
+
+    public readonly GamePropertiesConfig GamePropertiesConfig;
+    public readonly IPlaygroundBounds PlaygroundBounds;
 
     public IBotPerception Perception { get; private set; }
-    public GamePropertiesConfig Config => GeneralGameManager.Instance.GamePropertiesConfig;
-    public IPlaygroundBounds Bounds => GeneralGameManager.Instance.Playground;
     public CarController Car => carController;
 
     public NoteController CurrentTarget { get; set; }
     public Vector3 WanderTarget { get; set; }
     public Vector3 CurrentDirection { get; set; }
 
-    public BotControlStrategy(CarController carController, IBotPerception perception) : base(carController)
+    public BotControlStrategy(CarController carController, IBotPerception perception, 
+        IPlaygroundBounds playgroundBounds) : base(carController)
     {
         this.Perception = perception;
+        GamePropertiesConfig = ServiceLocator.Get<GamePropertiesConfig>();
+        PlaygroundBounds = playgroundBounds;
+
         stateMachine = new StateMachine();
 
         stateMachine.RegisterState(new BotIdleState(this));
         stateMachine.RegisterState(new BotWanderState(this));
         stateMachine.RegisterState(new BotSeekMoneyState(this));
+
     }
 
     public override void Reset()
@@ -29,7 +35,7 @@ public class BotControlStrategy : VehicleControlStrategyBase
         CurrentDirection = Vector3.zero;
 
         if (FindBestNote() != null) stateMachine.ChangeState<BotSeekMoneyState>();
-        else stateMachine.ChangeState<BotIdleState>();
+        else stateMachine.ChangeState<BotWanderState>();
 
     }
 
@@ -40,7 +46,8 @@ public class BotControlStrategy : VehicleControlStrategyBase
         return CurrentDirection;
     }
 
-    public void SetState<T>() where T : BotStateBase => stateMachine.ChangeState<T>();
+   public void SetState<T>() where T : BotStateBase => stateMachine.ChangeState<T>();
+
 
 
     public NoteController FindBestNote()
@@ -57,7 +64,7 @@ public class BotControlStrategy : VehicleControlStrategyBase
             if (distSqr < 0.1f) distSqr = 0.1f;
 
             float baseScore = note.Denomination / distSqr;
-            float randomFactor = Random.Range(1f - Config.BotTargetRandomness, 1f + Config.BotTargetRandomness);
+            float randomFactor = Random.Range(1f - GamePropertiesConfig.BotTargetRandomness, 1f + GamePropertiesConfig.BotTargetRandomness);
             float finalScore = baseScore * randomFactor;
 
             if (finalScore > bestScore)
@@ -73,7 +80,7 @@ public class BotControlStrategy : VehicleControlStrategyBase
     {
         Vector3 avoidance = Vector3.zero;
         Vector3 botPos = carController.transform.position;
-        float avoidRadSqr = Config.BotTrafficAvoidanceRadius * Config.BotTrafficAvoidanceRadius;
+        float avoidRadSqr = GamePropertiesConfig.BotTrafficAvoidanceRadius * GamePropertiesConfig.BotTrafficAvoidanceRadius;
 
         foreach (var traffic in Perception.VisibleTraffic)
         {
@@ -83,7 +90,7 @@ public class BotControlStrategy : VehicleControlStrategyBase
             if (distSqr < avoidRadSqr && distSqr > 0.01f)
             {
                 float repulsionWeight = 1f - (distSqr / avoidRadSqr);
-                avoidance -= toTraffic.normalized * (repulsionWeight * Config.BotTrafficEvasionStrength);
+                avoidance -= toTraffic.normalized * (repulsionWeight * GamePropertiesConfig.BotTrafficEvasionStrength);
             }
         }
         return avoidance;
@@ -95,7 +102,7 @@ public class BotControlStrategy : VehicleControlStrategyBase
         if (Perception.VisibleBots == null) return separation;
 
         Vector3 botPos = carController.transform.position;
-        float sepRadSqr = Config.BotSeparationRadius * Config.BotSeparationRadius;
+        float sepRadSqr = GamePropertiesConfig.BotSeparationRadius * GamePropertiesConfig.BotSeparationRadius;
 
         foreach (var otherBot in Perception.VisibleBots)
         {
@@ -107,9 +114,11 @@ public class BotControlStrategy : VehicleControlStrategyBase
             if (distSqr < sepRadSqr && distSqr > 0.01f)
             {
                 float repulsionWeight = 1f - (distSqr / sepRadSqr);
-                separation -= toBot.normalized * (repulsionWeight * Config.BotSeparationStrength);
+                separation -= toBot.normalized * (repulsionWeight * GamePropertiesConfig.BotSeparationStrength);
             }
         }
         return separation;
     }
+
+   
 }

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MatchScoreModel
+public class MatchScoreModel : IDisposable
 {
-    private Dictionary<IMoneyCollector, int> scores = new();
+    Dictionary<IMoneyCollector, int> scores = new();
+    
     public event Action<IMoneyCollector, int> OnScoreChanged;
+    public event Action<Dictionary<IMoneyCollector, int>> OnModelChanged;
 
     public void RegisterCollector(IMoneyCollector collector)
     {
@@ -22,6 +24,7 @@ public class MatchScoreModel
 
         scores[collector] = Mathf.Max(0, scores[collector] + amount);
         OnScoreChanged?.Invoke(collector, scores[collector]);
+        OnModelChanged?.Invoke(scores);
     }
 
     public int GetScore(IMoneyCollector collector) => scores.TryGetValue(collector, out var score) ? score : 0;
@@ -45,6 +48,12 @@ public class MatchScoreModel
 
         return true;
     }
+   
 
-    public void Clear() => scores.Clear();
+    public void Dispose()
+    {
+        scores.Clear();
+        OnScoreChanged = null;
+        OnModelChanged = null;
+    }
 }

@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: VFX
   m_GUID: df98130102fabe44e8d7c7cd4b771f02
   m_SerializeEntries:
+  - m_GUID: 5fe0688c029c62341ab9a08605ae9a33
+    m_Address: Assets/Prefabs/InputVisuals
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a2eb720d1679cb043b5569d3d8e7a750
     m_Address: Assets/Prefabs/VFX
     m_ReadOnly: 0

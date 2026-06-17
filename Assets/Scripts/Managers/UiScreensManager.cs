@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class UiScreensManager : MonoBehaviour
 {
-    public static UiScreensManager Instance;
-
     [SerializeField] ScreenBase[] screens;
 
     Dictionary<Type, ScreenBase> screensMap = new();
@@ -13,8 +11,6 @@ public class UiScreensManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-
         foreach (var item in screens)
         {
             screensMap[item.GetType()] = item;     

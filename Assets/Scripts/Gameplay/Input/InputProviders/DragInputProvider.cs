@@ -1,10 +1,14 @@
+using System;
 using UnityEngine;
 
 public class DragInputProvider : IInputProvider
 {
     Camera camera;
     Plane raycastPlane;
-    IPlaygroundBounds bounds; 
+    IPlaygroundBounds bounds;
+
+    public bool IsDragging { get; private set; }
+    public Vector3 CurrentTarget { get; private set; }
 
     public DragInputProvider(Camera camera, IPlaygroundBounds bounds)
     {
@@ -24,12 +28,22 @@ public class DragInputProvider : IInputProvider
             {
                 Vector3 rawHitPoint = ray.GetPoint(enter);
 
-                worldPoint = bounds.ConstrainPoint(rawHitPoint);
+                CurrentTarget = bounds.ConstrainPoint(rawHitPoint);
+                IsDragging = true;
+
+                worldPoint = CurrentTarget;
                 return true;
             }
         }
 
+        IsDragging = false;
         worldPoint = Vector3.zero;
         return false;
+    }
+
+    public void Dispose()
+    {
+        IsDragging = false;
+        CurrentTarget = Vector3.zero;
     }
 }

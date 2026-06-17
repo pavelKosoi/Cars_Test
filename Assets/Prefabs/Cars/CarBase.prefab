@@ -161,6 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4650132551045961958}
   - component: {fileID: -617040376759341782}
+  - component: {fileID: 216606333222426818}
   - component: {fileID: -3977602678554841730}
   m_Layer: 0
   m_Name: CarBase
@@ -206,6 +207,25 @@ MonoBehaviour:
   knockbackForce: 7
   impactDamping: 5
   fineCooldown: 1
+--- !u!114 &216606333222426818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396361001988420743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b039de0f41ba7594da664f823fa6b7a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleMotor
+  moveSpeed: 5
+  turnSpeed: 3
+  acceleration: 3
+  deceleration: 20
+  collisionSpinMultiplier: 100
+  knockbackForce: 7
+  impactDamping: 5
 --- !u!114 &-3977602678554841730
 MonoBehaviour:
   m_ObjectHideFlags: 0

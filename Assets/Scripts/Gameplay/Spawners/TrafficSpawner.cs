@@ -5,7 +5,6 @@ public class TrafficSpawner : ContinuousSpawnerBase<CarController>
     IPlaygroundBounds playgroundBounds;
     CarsManager carsManager;
 
-    GamePropertiesConfig gameProperties => GeneralGameManager.Instance.GamePropertiesConfig;
     float minDistanceSqr => gameProperties.MinDistanceBetweenNpcs * gameProperties.MinDistanceBetweenNpcs;
 
     public TrafficSpawner(IPlaygroundBounds playgroundBounds, CarsManager carsManager)

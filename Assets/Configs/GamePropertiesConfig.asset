@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GamePropertiesConfig
   m_EditorClassIdentifier: Assembly-CSharp::GamePropertiesConfig
   countdownDuration: 3
-  playtimeDuration: 10
+  playtimeDuration: 30
   botCount: 3
   playerSpawnQuadrant: 2
   npcCollisionFine: 10
@@ -24,13 +24,13 @@ MonoBehaviour:
   botTargetRandomness: 0.25
   minNpcsPerSpawn: 1
   maxNpcsPerSpawn: 3
-  maxSimultaneousNpcs: 6
-  minTrafficSpawnInterval: 1
+  maxSimultaneousNpcs: 3
+  minTrafficSpawnInterval: 2
   maxTrafficSpawnInterval: 3
   minDistanceBetweenNpcs: 2
   minNotesPerSpawn: 2
   maxNotesPerSpawn: 5
-  maxSimultaneousNotes: 6
+  maxSimultaneousNotes: 10
   maxNotesDenomination: 100
   minNotesSpawnInterval: 1
   maxNotesSpawnInterval: 3

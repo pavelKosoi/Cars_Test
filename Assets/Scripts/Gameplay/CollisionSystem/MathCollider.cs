@@ -20,12 +20,12 @@ public class MathCollider : MonoBehaviour
 
     private void OnEnable()
     {
-        GeneralGameManager.Instance.collisionManager.Register(this);
+        ServiceLocator.Get<MathCollisionManager>().Register(this);
     }
 
     private void OnDisable()
     {
-        GeneralGameManager.Instance.collisionManager.Unregister(this);
+        ServiceLocator.Get<MathCollisionManager>().Unregister(this);
     }
 
     public void TriggerCollision(MathCollider other)

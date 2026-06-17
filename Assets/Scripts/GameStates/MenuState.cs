@@ -6,7 +6,7 @@ public class MenuState : GameStateBase
     public override void Enter()
     {
         base.Enter();
-        UiScreensManager.Instance.Show<MenuScreen>();
+        ServiceLocator.Get<UiScreensManager>().Show<MenuScreen>();
     }
 
     public override void Tick()
@@ -14,7 +14,7 @@ public class MenuState : GameStateBase
         if (Input.GetMouseButtonDown(0))
         {
             IsFinished = true;
-            GeneralGameManager.Instance.SetState<CountdownState>();
+            ServiceLocator.Get<IStateSwitcher<GameStateBase>>().SetState<GameplayState>();
         }
     }
 }

@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public abstract class GameStateBase : IState
+public abstract class GameStateBase : IState, IDisposable
 {
     public bool IsFinished { get; protected set; }
 

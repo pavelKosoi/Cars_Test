@@ -9,12 +9,13 @@ public class NotesSpawner : ContinuousSpawnerBase<NoteController>
     IPlaygroundBounds playgroundBounds;
     int currentTotalDenomination = 0;
 
-    GamePropertiesConfig gameProperties => GeneralGameManager.Instance.GamePropertiesConfig;
 
     public NotesSpawner(MoneyConfig moneyConfig, IPlaygroundBounds playgroundBounds)
     {
         this.moneyConfig = moneyConfig;
         this.playgroundBounds = playgroundBounds;
+
+        gameProperties = ServiceLocator.Get<GamePropertiesConfig>();
     }
 
     protected override bool CanSpawnBatch() =>

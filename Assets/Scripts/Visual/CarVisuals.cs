@@ -15,7 +15,7 @@ public class CarVisuals : MonoBehaviour
     [SerializeField] float impactSpinThreshold = 50f;
 
     CarController car;
-    VisualsConfig visualsConfig => GeneralGameManager.Instance.VisualsConfig;
+    VisualsConfig visualsConfig => ServiceLocator.Get<VisualsConfig>();
 
     SkidmarkEffect activeSkidmark;
     bool isSkidding;
@@ -28,12 +28,11 @@ public class CarVisuals : MonoBehaviour
     void OnEnable()
     {
         car.OnCollided += HandleCollision;
-        car.OnMoneyCollected += HandleMoneyCollected;
     }
+
     void OnDisable()
     {
         car.OnCollided -= HandleCollision;
-        car.OnMoneyCollected -= HandleMoneyCollected;
         if (isSkidding) StopSkidding();
     }
 
@@ -44,21 +43,9 @@ public class CarVisuals : MonoBehaviour
 
     void HandleCollision(Vector3 contactPoint, float impactForce)
     {
-        var sparksObj = ObjectsPool.GetInstance(visualsConfig.CollisionSparksRef, contactPoint, true);       
+        var sparksObj = ObjectsPool.GetInstance(visualsConfig.CollisionSparksRef, contactPoint, true);
         ObjectsPool.ReturnToPool(sparksObj, 1f);
-    }
-
-    void HandleMoneyCollected(IMoneyCollector collector, int amount)
-    {
-        Vector3 spawnPos = transform.position + Vector3.up * 1.5f;
-
-        var textObj = ObjectsPool.GetInstance(visualsConfig.FloatingTextRef, spawnPos, true);
-
-        if (textObj.TryGetComponent(out FloatingTextEffect floatingText))
-        {
-            floatingText.Init(amount);
-        }
-    }
+    }   
 
     void HandleDriftVisuals()
     {

@@ -8,7 +8,7 @@ public class BotWanderState : BotStateBase
 
     public override void Enter()
     {
-        controlStrategy.WanderTarget = controlStrategy.Bounds.GetRandomPointInside(0.8f);
+        controlStrategy.WanderTarget = controlStrategy.PlaygroundBounds.GetRandomPointInside(0.7f);
     }
  
     public override void Tick()

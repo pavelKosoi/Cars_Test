@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
 public interface IVehicle
 {
-    public void MoveTo(Vector3 targetDirection);
-    public void InjectControlStrategy<T>() where T : IVehicleControlStrategy;
+    void MoveTo(Vector3 targetDirection);
+    bool Stop { get; set; }
+    CarTelemetry Telemetry { get; }
+
+    event Action<Vector3, float> OnCollided;
 }
