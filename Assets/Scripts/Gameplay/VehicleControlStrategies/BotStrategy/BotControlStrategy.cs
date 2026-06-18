@@ -76,11 +76,12 @@ public class BotControlStrategy : VehicleControlStrategyBase, IStateSwitcher<Bot
         return bestNote;
     }
 
-    public Vector3 GetTrafficAvoidance()
+    public Vector3 GetTrafficAvoidance(float radiusMult = 1)
     {
         Vector3 avoidance = Vector3.zero;
         Vector3 botPos = carController.transform.position;
-        float avoidRadSqr = GamePropertiesConfig.BotTrafficAvoidanceRadius * GamePropertiesConfig.BotTrafficAvoidanceRadius;
+        float avoidRadSqr = GamePropertiesConfig.BotTrafficAvoidanceRadius 
+            * GamePropertiesConfig.BotTrafficAvoidanceRadius * radiusMult;
 
         foreach (var traffic in Perception.VisibleTraffic)
         {
